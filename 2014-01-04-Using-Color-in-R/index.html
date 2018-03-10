@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Using Color in R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Using Color in R">
+  <meta name="author" content="Earl F. Glynn, Principal Programmer/Analyst, UMKC Center for Health Insights">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/custom.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Using Color in R</h1>
+    <h2></h2>
+    <p>Earl F. Glynn, Principal Programmer/Analyst, UMKC Center for Health Insights<br/>Kansas City R Users Group, 4 January 2014</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <!-- Set background color for slide 1 in libraries/frameworks/io2012/slidify.css -->
+
+<h2>Key ideas</h2>
+
+<ul>
+<li>Color Spaces
+
+<ul>
+<li>RGB Additive Color Space</li>
+<li>RGB Color Names</li>
+</ul></li>
+<li>R Color Basics
+
+<ul>
+<li>Color Definition</li>
+<li>Palette Types and RColorBrewer</li>
+<li>Points, Axes, Text, Lines, Legends, Background</li>
+</ul></li>
+<li>Color Tips
+
+<ul>
+<li>Image Processing</li>
+<li>Color Deficiency/Blindness</li>
+<li>Why don&#39;t screen colors match printout?</li>
+<li>Presentations</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Color Spaces</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p><a href="http://en.wikipedia.org/wiki/RGB_color_space">RGB</a> Red-Green-Blue</p></li>
+<li><p><a href="http://en.wikipedia.org/wiki/HSL_and_HSV">HSV</a> Hue-Saturation-Value</p></li>
+<li><p><a href="http://en.wikipedia.org/wiki/HSL_and_HSV">HLS</a> Hue-Lightness-Saturation</p></li>
+<li><p><a href="http://en.wikipedia.org/wiki/Lab_color_space">LAB</a> coordinates in CIE LAB space</p></li>
+<li><p>R Package: <a href="http://cran.r-project.org/web/packages/colorspace/colorspace.pdf">help(package=colorspace)</a></p></li>
+</ul>
+
+<p><a href="http://www.greatreality.com/ColorPrimary.htm">Why did you learn the wrong primary colors in elementary school?</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>RGB Additive Color Space</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=assets/img/RGB-Color-Cube.png height='80%' /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>RGB Additive Color Space</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>0.0 to 1.0, decimal 0 to 255, hexadecimal 00 to FF</p>
+
+<pre><code class="r">rgb(1,0,0)   # red
+</code></pre>
+
+<pre><code>[1] &quot;#FF0000&quot;
+</code></pre>
+
+<pre><code class="r">rgb(0,1,0)   # green
+</code></pre>
+
+<pre><code>[1] &quot;#00FF00&quot;
+</code></pre>
+
+<pre><code class="r">rgb(0,0,1)   # blue
+</code></pre>
+
+<pre><code>[1] &quot;#0000FF&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>RGB Additive Color Space</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">rgb(1,0,1)   # magenta = red   + blue
+</code></pre>
+
+<pre><code>[1] &quot;#FF00FF&quot;
+</code></pre>
+
+<pre><code class="r">rgb(1,1,0)   # yellow  = red   + green
+</code></pre>
+
+<pre><code>[1] &quot;#FFFF00&quot;
+</code></pre>
+
+<pre><code class="r">rgb(0,1,1)   # cyan    = green + blue
+</code></pre>
+
+<pre><code>[1] &quot;#00FFFF&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>RGB Additive Color Space</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">rgb(1,0,0)    # red
+</code></pre>
+
+<pre><code>[1] &quot;#FF0000&quot;
+</code></pre>
+
+<pre><code class="r">rgb(255,0,0, maxColorValue=255)
+</code></pre>
+
+<pre><code>[1] &quot;#FF0000&quot;
+</code></pre>
+
+<pre><code class="r">col2rgb(c(&quot;black&quot;, &quot;red&quot;, &quot;green&quot;, &quot;blue&quot;, &quot;yellow&quot;, &quot;white&quot;))
+</code></pre>
+
+<pre><code>      [,1] [,2] [,3] [,4] [,5] [,6]
+red      0  255    0    0  255  255
+green    0    0  255    0  255  255
+blue     0    0    0  255    0  255
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>RGB Color Names:  <code>colors()</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Color names and RGB values also in file
+C:\Program Files\R\R-3.0.2\etc\rgb.txt</p>
+
+<pre><code class="r"># colors() or colours()
+length(colors())
+</code></pre>
+
+<pre><code>[1] 657
+</code></pre>
+
+<pre><code class="r">head(colors())
+</code></pre>
+
+<pre><code>[1] &quot;white&quot;         &quot;aliceblue&quot;     &quot;antiquewhite&quot;  &quot;antiquewhite1&quot; &quot;antiquewhite2&quot; &quot;antiquewhite3&quot;
+</code></pre>
+
+<pre><code class="r">tail(colours())
+</code></pre>
+
+<pre><code>[1] &quot;yellow&quot;      &quot;yellow1&quot;     &quot;yellow2&quot;     &quot;yellow3&quot;     &quot;yellow4&quot;     &quot;yellowgreen&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>RGB Color Names</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">colors()[grep(&quot;red&quot;, colors())]   # colors with &quot;red&quot;
+</code></pre>
+
+<pre><code> [1] &quot;darkred&quot;         &quot;indianred&quot;       &quot;indianred1&quot;      &quot;indianred2&quot;      &quot;indianred3&quot;     
+ [6] &quot;indianred4&quot;      &quot;mediumvioletred&quot; &quot;orangered&quot;       &quot;orangered1&quot;      &quot;orangered2&quot;     
+[11] &quot;orangered3&quot;      &quot;orangered4&quot;      &quot;palevioletred&quot;   &quot;palevioletred1&quot;  &quot;palevioletred2&quot; 
+[16] &quot;palevioletred3&quot;  &quot;palevioletred4&quot;  &quot;red&quot;             &quot;red1&quot;            &quot;red2&quot;           
+[21] &quot;red3&quot;            &quot;red4&quot;            &quot;violetred&quot;       &quot;violetred1&quot;      &quot;violetred2&quot;     
+[26] &quot;violetred3&quot;      &quot;violetred4&quot;     
+</code></pre>
+
+<pre><code class="r">head(colors()[grep(&quot;blue&quot;, colors())], 25)  # 25 of 66 &quot;blue&quot; colors
+</code></pre>
+
+<pre><code> [1] &quot;aliceblue&quot;      &quot;blue&quot;           &quot;blue1&quot;          &quot;blue2&quot;          &quot;blue3&quot;         
+ [6] &quot;blue4&quot;          &quot;blueviolet&quot;     &quot;cadetblue&quot;      &quot;cadetblue1&quot;     &quot;cadetblue2&quot;    
+[11] &quot;cadetblue3&quot;     &quot;cadetblue4&quot;     &quot;cornflowerblue&quot; &quot;darkblue&quot;       &quot;darkslateblue&quot; 
+[16] &quot;deepskyblue&quot;    &quot;deepskyblue1&quot;   &quot;deepskyblue2&quot;   &quot;deepskyblue3&quot;   &quot;deepskyblue4&quot;  
+[21] &quot;dodgerblue&quot;     &quot;dodgerblue1&quot;    &quot;dodgerblue2&quot;    &quot;dodgerblue3&quot;    &quot;dodgerblue4&quot;   
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>RGB Color Names</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>7-page Color Chart of colors()</p>
+
+<p><a href="https://github.com/EarlGlynn/colorchart/raw/master/ColorChart.pdf">https://github.com/EarlGlynn/colorchart/raw/master/ColorChart.pdf</a></p>
+
+<p><img class=center src=assets/img/R-Color-Names-RGB.png height='30%' /></p>
+
+<p>Details showing how to create chart in R:  <a href="https://github.com/EarlGlynn/colorchart/wiki/Color-Chart-in-R">Color Chart in R</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>RGB Color Names</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>3D colors() Example</strong></p>
+
+<p>From Example 6a in <code>?scatterplot3d</code>  help in <code>library(scatterplot3d)</code></p>
+
+<div class="rimage center"><img src="fig/fig.png" title="colors() scatterplot3d" alt="colors() scatterplot3d" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Color Definition</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A color in R can be specified in three ways:</p>
+
+<ul>
+<li><p>color name</p></li>
+<li><p>hex constant #000000 through #FFFFFF  (a 24-bit color)</p></li>
+<li><p>index into palette, which is vector of color names and/or hex constants</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Default Palette</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">palette()   # show default palette
+</code></pre>
+
+<pre><code>[1] &quot;black&quot;   &quot;red&quot;     &quot;green3&quot;  &quot;blue&quot;    &quot;cyan&quot;    &quot;magenta&quot; &quot;yellow&quot;  &quot;gray&quot;   
+</code></pre>
+
+<pre><code class="r">par(mar=c(1,1,1,1))  # Reduce margins
+barplot(rep(1,8), yaxt=&quot;n&quot;, col=1:8)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+<p>To use default palette if not currently the defined palette:</p>
+
+<p><code>barplot(rep(1,8), yaxt=&quot;n&quot;, col=palette(&quot;default&quot;))</code></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>R Palette:  &quot;Rainbow&quot;</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">N &lt;- 20
+palette(rainbow(N))   # Define N-color rainbow palette
+palette()             # Show colors in current palette
+</code></pre>
+
+<pre><code> [1] &quot;red&quot;     &quot;#FF4D00&quot; &quot;#FF9900&quot; &quot;#FFE500&quot; &quot;#CCFF00&quot; &quot;#80FF00&quot; &quot;#33FF00&quot; &quot;#00FF19&quot; &quot;#00FF66&quot;
+[10] &quot;#00FFB2&quot; &quot;cyan&quot;    &quot;#00B3FF&quot; &quot;#0066FF&quot; &quot;#001AFF&quot; &quot;#3300FF&quot; &quot;#7F00FF&quot; &quot;#CC00FF&quot; &quot;#FF00E6&quot;
+[19] &quot;#FF0099&quot; &quot;#FF004D&quot;
+</code></pre>
+
+<pre><code class="r">par(mar=c(1,1,1,1))   # Reduce margins
+barplot(rep(1,N), yaxt=&quot;n&quot;, col=1:N)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>R Palette:  Shades of Grey Palette</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Function spelled either <code>grey()</code> or <code>gray()</code></p>
+
+<pre><code class="r">N &lt;- 16                           # N = Number of grey levels
+0:(N-1) / (N-1)                   # vector with values from 0 to 1
+</code></pre>
+
+<pre><code> [1] 0.00000 0.06667 0.13333 0.20000 0.26667 0.33333 0.40000 0.46667 0.53333 0.60000 0.66667 0.73333
+[13] 0.80000 0.86667 0.93333 1.00000
+</code></pre>
+
+<pre><code class="r">palette(grey(0:(N-1) / (N-1)))    # Define N-shades of grey (256 is max)
+palette()                         # Show colors in current palette
+</code></pre>
+
+<pre><code> [1] &quot;black&quot;   &quot;#111111&quot; &quot;#222222&quot; &quot;gray20&quot;  &quot;#444444&quot; &quot;#555555&quot; &quot;gray40&quot;  &quot;#777777&quot; &quot;#888888&quot;
+[10] &quot;gray60&quot;  &quot;#AAAAAA&quot; &quot;#BBBBBB&quot; &quot;gray80&quot;  &quot;#DDDDDD&quot; &quot;#EEEEEE&quot; &quot;white&quot;  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>R Palette:  Shades of Grey Palette</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">par(mar=c(1,1,1,1))                     # Reduce margins
+barplot(rep(1,3*N), yaxt=&quot;n&quot;, col=1:N)  # Three cycles
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+<p>Plotting 3*N bars with palette of N shades of grey results in color recycling.
+R recycles colors whenever there are more objects to plot than colors.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>R Palette:  Other N-Color Palettes</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>heat.colors()</strong></p>
+
+<pre><code class="r">par(mar=rep(0,4))    # No margins
+barplot(rep(1,16), yaxt=&quot;n&quot;, col=heat.colors(16))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
+
+<p><strong>cm.colors()</strong>    <em>cyan-magenta</em></p>
+
+<pre><code class="r">par(mar=rep(0,4))    # No margins
+barplot(rep(1,16), yaxt=&quot;n&quot;, col=cm.colors(16))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-11.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>R Palette:  Other N-Color Palettes</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>topo.colors()</strong></p>
+
+<pre><code class="r">par(mar=rep(0,4))    # No margins
+barplot(rep(1,16), yaxt=&quot;n&quot;, col=topo.colors(16))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" /></div>
+
+<p><strong>terrain.colors()</strong></p>
+
+<pre><code class="r">par(mar=rep(0,4))    # No margins
+barplot(rep(1,16), yaxt=&quot;n&quot;, col=terrain.colors(16))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-13.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>R Palette Function:  colorRampPalette()</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Use <code>colorRampPalette()</code> to define function that creates palette.</p>
+
+<pre><code class="r">z &lt;- outer(1:20, 1:20, function(x,y) sin(sqrt(x*y)/3))
+PaletteFunction &lt;- colorRampPalette(c(&quot;red&quot;, &quot;white&quot;, &quot;blue&quot;), space = &quot;Lab&quot;)
+filled.contour(z, col = PaletteFunction(20))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-14.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Palette Types</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>Qualitative Palette</strong></p>
+
+<ul>
+<li>All colors have same perceptual weight/importance</li>
+<li>Typical application:  bar plot</li>
+</ul>
+
+<p><strong>Sequential Palette</strong></p>
+
+<ul>
+<li>For coding numerical information in a range</li>
+<li>Typical application:  heat map</li>
+</ul>
+
+<p><strong>Diverging Palette</strong></p>
+
+<ul>
+<li>Like sequential palette but middle neutral value between two extremes</li>
+</ul>
+
+<p>Details:</p>
+
+<ul>
+<li><a href="http://epub.wu.ac.at/1404/1/document.pdf">Choosing Color Palettes for Statistical Graphics</a></li>
+<li><a href="http://blog.ggplot2.org/post/23995319650/choosing-colour-palettes-part-i-introduction">Choosing Colour palettes. Part I: Introduction</a> (ggplot2 examples)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>R Palettes:  RColorBrewer Package</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(RColorBrewer)
+table(brewer.pal.info$category)
+</code></pre>
+
+<pre><code>
+ div qual  seq 
+   9    8   18 
+</code></pre>
+
+<pre><code class="r">brewer.pal.info[brewer.pal.info$category == &quot;qual&quot;,]
+</code></pre>
+
+<pre><code>        maxcolors category
+Accent          8     qual
+Dark2           8     qual
+Paired         12     qual
+Pastel1         9     qual
+Pastel2         8     qual
+Set1            9     qual
+Set2            8     qual
+Set3           12     qual
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>RColorBrewer: Qualitative Palettes</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">par(mar=c(0,4,0,0))  # Smaller margins than default
+display.brewer.all(type=&quot;qual&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-16.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>RColorBrewer: Sequential Palettes</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">par(mar=c(0,4,0,0))  # Smaller margins than default
+display.brewer.all(type=&quot;seq&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-17.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>RColorBrewer: Diverging Palettes</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">par(mar=c(0,4,0,0))  # Smaller margins than default
+display.brewer.all(type=&quot;div&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-18.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Object color</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Many R objects can take on different colors:</p>
+
+<ul>
+<li>Points</li>
+<li>Lines</li>
+<li>Axes</li>
+<li>Text</li>
+<li>Legends</li>
+<li>Background</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Points</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">palette()[1:5]   # First five elements of default palette
+</code></pre>
+
+<pre><code>[1] &quot;black&quot;  &quot;red&quot;    &quot;green3&quot; &quot;blue&quot;   &quot;cyan&quot;  
+</code></pre>
+
+<pre><code class="r">x &lt;- -2:2
+y &lt;- x^2
+plot(x,y, col=1:5, pch=CIRCLE&lt;-16, cex=2)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-20.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Points</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>Equivalent plot statements:</strong></p>
+
+<p>assuming default palette</p>
+
+<p><code>plot(x,y, col=1:5, pch=CIRCLE&lt;-16, cex=2)</code></p>
+
+<p><code>plot(x,y, col=c(&quot;black&quot;, &quot;red&quot;, &quot;green3&quot;, &quot;blue&quot;, &quot;cyan&quot;), pch=CIRCLE, cex=2)</code></p>
+
+<p><code>plot(x,y, col=c(&quot;#000000&quot;, &quot;#FF0000&quot;, &quot;green3&quot;, 4, 5), pch=CIRCLE, cex=2)</code></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Points, Axes, Text</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-21.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" class="plot" /></div>
+
+<p>See code on next slide.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Points, Axes, Text</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r"># Points, Title, Axis Labels
+plot(0:10, 0:10, col=0:10, pch=CIRCLE&lt;-16, axes=FALSE,
+     main=&quot;Chart Title&quot;, col.main=&quot;blue&quot;, cex.main=2,
+     xlab=&quot;X axis&quot;, ylab=&quot;Y axis&quot;, col.lab=&quot;blue&quot;, cex.lab=1.5)
+
+# Margin Text
+mtext(&quot;Bottom&quot;,  BOTTOM&lt;-1, col=&quot;red&quot;)
+mtext(&quot;Left&quot;,    LEFT&lt;-2,   col=&quot;green&quot;)
+
+# Axes
+axis(BOTTOM, col=&quot;red&quot;,   col.axis=&quot;black&quot;, cex.axis=1.5)
+axis(LEFT,   col=&quot;green&quot;, col.axis=&quot;green&quot;, at=2*0:5, labels=paste(20*0:5),
+     las=AXIS_LABEL_HORIZONTAL&lt;-1)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Lines and Legends</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-23.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" class="plot" /></div>
+
+<p>See code on next slide.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Lines and Legends</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(RColorBrewer)
+
+Time &lt;- 0:120  # minutes
+
+Types  &lt;- c(&quot;solid&quot;, &quot;dotted&quot;, &quot;dashed&quot;)
+Colors &lt;- brewer.pal(3, &quot;Dark2&quot;)   # qualitative palette
+
+Periods &lt;- data.frame(Period1=cos(2*pi*Time/120),
+                      Period2=cos(2*pi*Time/ 90),
+                      Period3=cos(2*pi*Time/150))
+
+matplot(Periods, type=&quot;l&quot;, lwd=3,
+        main=&quot;Expression Vs. Time&quot;, cex.main=1.5,
+        xlab=&quot;Time[min]&quot;, ylab=&quot;Expression&quot;,
+        col=Colors, lty=Types)
+legend(&quot;top&quot;, c(&quot;120 min period&quot;, &quot;90 min period&quot;, &quot;150 min period&quot;),
+       col=Colors, lty=Types, lwd=3)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>R Color Basics:  Background Color</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">par(bg=&quot;wheat&quot;, mar=c(4,4,0,0))  # background color
+x &lt;- -2:2
+y &lt;- x^2
+plot(x,y, col=1:5, pch=CIRCLE&lt;-16, cex=2)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-25.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" class="plot" /></div>
+
+<ul>
+<li>Useful when copying and pasting metafile to PowerPoint since default is &quot;transparent&quot;</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>Color Tip:  Image Processing</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Bioconductor package EBImage is an image processing toolbox for R.</li>
+<li>Supports <code>colormode</code> of <code>Grayscale</code> or <code>Color</code>.</li>
+<li><code>channel</code> function handles color space conversions.</li>
+<li>Color colormode images have red, green, blue and possiby alpha channels.</li>
+</ul>
+
+<p><img class=center src=assets/img/EBImage-Segmentation.png height='100%' /></p>
+
+<p>Segmentation of cells in <em>Introduction to EBImage</em> documentation.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-33" style="background:;">
+  <hgroup>
+    <h2>Color Tip:  Color Deficiency/Blindness</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>About 1 in 12 have some sort of color deficiency.</li>
+<li>~8% of men and ~0.5% of women are affected <a href="http://en.wikipedia.org/wiki/Color_blindness">according to Wikipedia</a>.</li>
+</ul>
+
+<p><img class=center src=assets/img/Ishihara-Tests.png height='70%' /></p>
+
+<p><a href="http://ishiharatest.blogspot.com/">Ishihara Color Blindess Tests from ishiharatest.blogspot.com</a></p>
+
+<ul>
+<li>What numbers do you see?  12 at the left.  29 or 70 at the right?</li>
+<li><a href="http://colorvisiontesting.com/what%20colorblind%20people%20see.htm">How the Color Deficient Person Sees the World</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h2>Color Deficiency/Blindness:  R dichromat package</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(dichromat)
+par(mfcol=c(1,2), mar=rep(0,4))
+N &lt;- 20
+pie(rep(1,N), col=heat.colors(N))
+pie(rep(1,N), col=dichromat(heat.colors(N)))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-26.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" class="plot" /></div>
+
+<p><code>dichromat</code> function collapses red-green color distinctions to approximate the effect of the two common forms of red-green color blindness: protanopia and deuteranopia</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-35" style="background:;">
+  <hgroup>
+    <h2>Color Deficiency/Blindness:  R dichromat package</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-27.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" class="plot" /></div>
+
+<p>See code on next slide.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h2>Color Deficiency/Blindness:  R dichromat package</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(dichromat)
+par(mar=c(1,2,2,1))
+layout(matrix(1:6,ncol=1))
+image(1:10,1,matrix(1:10, ncol=1),
+     col=colorschemes$BrowntoBlue.10,
+     main=&quot;Brown to Blue (10)&quot;, axes=FALSE)
+image(1:100,1,matrix(1:100 ,ncol=1),
+     col=colorRampPalette(colorschemes$BrowntoBlue.10,space=&quot;Lab&quot;)(100),
+     main=&quot;Brown to Blue Ramp&quot;, axes=FALSE)
+...
+image(1:12,1,matrix(1:12, ncol=1),col=colorschemes$Categorical.12,
+     main=&quot;Categorical (12)&quot;, axes=FALSE)
+image(1:12,1,matrix(1:12, ncol=1),
+     col=dichromat(colorschemes$Categorical.12, &quot;deutan&quot;),
+     main=&quot;Categorical (12) -- deuteranopia&quot;, axes=FALSE)
+image(1:12,1,matrix(1:12,ncol=1),
+     col=dichromat(colorschemes$Categorical.12, &quot;protan&quot;),
+     main=&quot;Categorical (12) -- protanopia&quot;, axes=FALSE)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-37" style="background:;">
+  <hgroup>
+    <h2>Color Tip:  Why don&#39;t screen colors match printout?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Every device has a gamut of colors that it can display.</li>
+<li>Color gamuts between devices often do not match.
+
+<ul>
+<li>How should a color be represented if it cannot be displayed on a device?</li>
+</ul></li>
+<li>Color conversions may not be perfect, e.g., RGB additive colors must be converted to CMYK (Cyan-Magenta-Yellow-Black) subtractive colors for printing.</li>
+<li>Paper/ink differences</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-38" style="background:;">
+  <hgroup>
+    <h2>Color Tip:  Presentations/Graphics</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Avoid unnecessary use of color.</li>
+<li>Use bright colors with small graphics to make them stand out.</li>
+<li>Be consistent in use of color.</li>
+<li>Do NOT use color as only attribute to show difference. E.g., consider color and line type.</li>
+</ul>
+
+<p>Also see:  <a href="http://www.public-speaking.org/public-speaking-color-article.htm">Public Speaking:  Cool Color Commentary</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-39" style="background:;">
+  <hgroup>
+    <h2>Color Resources</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p><a href="http://www.lindahall.org/events_exhib/">Wheels, Pyramids, and Spinning Tops: The Scientific Approach to Color</a>, Exhibit at Linda Hall Library through March 14</p></li>
+<li><p><a href="http://epub.wu.ac.at/1404/1/document.pdf">Choosing Color Palettes for Statistical Graphics</a>, Wirtschaftsuniversität Wien</p></li>
+<li><p><a href="https://github.com/EarlGlynn/colorchart/wiki/Color-Chart-in-R">Color Chart in R</a></p></li>
+<li><p><a href="http://www.r-project.org/conferences/DSC-2003/Proceedings/Ihaka.pdf">Colour for Presentation Graphics</a>, Proceedings of 3rd International Workshop on Distributed Statistical Computing</p></li>
+<li><p><a href="http://colorusage.arc.nasa.gov/">Using Color in Information Display Graphics</a>, NASA</p></li>
+<li><p><a href="http://www.r-bloggers.com/r-using-rcolorbrewer-to-colour-your-figures-in-r/">Using RColorBrewer to Colour Your Figures in R</a>, R-bloggers</p></li>
+<li><p><a href="http://www.research.ibm.com/people/l/lloydt/color/color.HTM">Why Should Engineers and Scientists be Worried About Color?</a>, IBM</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title=''>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Color Spaces'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='RGB Additive Color Space'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='RGB Additive Color Space'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='RGB Additive Color Space'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='RGB Additive Color Space'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='RGB Color Names:  <code>colors()</code>'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='RGB Color Names'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='RGB Color Names'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='RGB Color Names'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='R Color Basics:  Color Definition'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='R Color Basics:  Default Palette'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='R Palette:  &quot;Rainbow&quot;'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='R Palette:  Shades of Grey Palette'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='R Palette:  Shades of Grey Palette'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='R Palette:  Other N-Color Palettes'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='R Palette:  Other N-Color Palettes'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='R Palette Function:  colorRampPalette()'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Palette Types'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='R Palettes:  RColorBrewer Package'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='RColorBrewer: Qualitative Palettes'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='RColorBrewer: Sequential Palettes'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='RColorBrewer: Diverging Palettes'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='R Color Basics:  Object color'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='R Color Basics:  Points'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='R Color Basics:  Points'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='R Color Basics:  Points, Axes, Text'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='R Color Basics:  Points, Axes, Text'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='R Color Basics:  Lines and Legends'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='R Color Basics:  Lines and Legends'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='R Color Basics:  Background Color'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='Color Tip:  Image Processing'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='Color Tip:  Color Deficiency/Blindness'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='Color Deficiency/Blindness:  R dichromat package'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='Color Deficiency/Blindness:  R dichromat package'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='Color Deficiency/Blindness:  R dichromat package'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='Color Tip:  Why don&#39;t screen colors match printout?'>
+         37
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=38 title='Color Tip:  Presentations/Graphics'>
+         38
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=39 title='Color Resources'>
+         39
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
